@@ -1,8 +1,4 @@
-
-# Exno:1
-## NAME: M.CHARAN LATHIKA
-## REG NO : 212224040052
-
+<img width="1349" height="494" alt="image" src="https://github.com/user-attachments/assets/966adf7a-adac-472b-88a5-ab39b550305b" /># Exno:1
 Data Cleaning Process
 
 # AIM
@@ -25,135 +21,287 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
+```
+import pandas as pd
+df=pd.read_csv("SAMPLEIDS.csv")
+df.describe()
+```
 
-```
-import pandas as pd  
-df=pd.read_csv("/content/SAMPLEIDS.csv")
-df
-```
+<img width="1376" height="486" alt="Screenshot 2026-02-18 134253" src="https://github.com/user-attachments/assets/265ac6dc-1345-4ecc-93e8-83ff56090811" />
 
-<img width="1914" height="1137" alt="image" src="https://github.com/user-attachments/assets/0a82c51c-59b9-41d5-bf5a-abfd7b53e0dd" />
-
-```
-df.head()
-
-```
-<img width="1919" height="1141" alt="image" src="https://github.com/user-attachments/assets/bbdd18d3-de4f-4686-a0d0-880c57668c71" />
-
-```
-df.tail()
-```
-<img width="1908" height="761" alt="image" src="https://github.com/user-attachments/assets/50c54cfb-83e2-49cc-87d7-b2cf11cc2d00" />
 
 ```
 df.info()
+```
+<img width="1311" height="480" alt="Screenshot 2026-02-18 134303" src="https://github.com/user-attachments/assets/795ae604-5231-45ce-9b51-413685fce717" />
+
 
 ```
-<img width="1904" height="1133" alt="image" src="https://github.com/user-attachments/assets/a9d39420-1ed2-4b08-8cb8-df78cf9518aa" />
+df.head()
+```
+<img width="1326" height="382" alt="Screenshot 2026-02-18 134314" src="https://github.com/user-attachments/assets/0a66ff69-1fc5-4be1-8aae-4ca8e2aa368d" />
+
 
 ```
-df.describe()
+df.isnull()
 ```
-<img width="1917" height="1139" alt="image" src="https://github.com/user-attachments/assets/9b8f211a-0e5c-48f0-a258-208c4a31ef72" />
+<img width="928" height="873" alt="Screenshot 2026-02-18 134325" src="https://github.com/user-attachments/assets/5a698a88-ed51-4a59-bee9-be6dea8efb9f" />
+
 
 ```
 df.isnull().sum()
 ```
-<img width="1918" height="1141" alt="image" src="https://github.com/user-attachments/assets/93aae9eb-6860-4d38-809d-18dd31110975" />
+<img width="959" height="619" alt="Screenshot 2026-02-18 134344" src="https://github.com/user-attachments/assets/bf905d0f-fcf7-4e53-9830-b32c947e6819" />
+
 
 ```
-df.isnull().any()
+df_clean = df.dropna()
+df_clean
 ```
-<img width="1918" height="1144" alt="image" src="https://github.com/user-attachments/assets/3301a572-9154-41aa-91ae-978737d1aea8" />
+<img width="1167" height="704" alt="Screenshot 2026-02-18 134352" src="https://github.com/user-attachments/assets/d5aebc50-4d56-43ad-b206-ece40f9aa544" />
 
-```
-df.dropna()
-```
-<img width="1906" height="1130" alt="image" src="https://github.com/user-attachments/assets/467b0bcf-5ad5-4de6-b843-360faad347ee" />
+
 
 ```
-df.fillna(0)
-```
+numeric_df = df_clean.select_dtypes(include=['float64', 'int64'])
 
-<img width="1915" height="1110" alt="image" src="https://github.com/user-attachments/assets/27ad0b6d-b412-4ee7-9dc7-7353c2664fc3" />
+Q1 = numeric_df.quantile(0.25, numeric_only=True)
+Q3 = numeric_df.quantile(0.75, numeric_only=True)
+IQR = Q3 - Q1
 
+data = df_clean[~((numeric_df < (Q1 - 1.5 * IQR)) | (numeric_df > (Q3 + 1.5 * IQR))).any(axis=1)]
+data
 ```
-df.fillna(method='ffill')
-```
-<img width="1908" height="1127" alt="image" src="https://github.com/user-attachments/assets/6b24cf0b-f6c9-4a71-a245-713d6507b97f" />
+<img width="1202" height="822" alt="Screenshot 2026-02-18 134408" src="https://github.com/user-attachments/assets/9657cd88-6cec-4b00-9cbb-61ccc87847ef" />
 
-```
-df.fillna({'GENDER':'MALE','NAME':'SRI'})
-
-```
-<img width="1837" height="1068" alt="image" src="https://github.com/user-attachments/assets/17f4cd96-1526-447a-87af-935b39c95b7e" />
 
 ```
-ir=pd.read_csv("/content/iris.csv")
-ir
+import pandas as pd
+df=pd.read_csv("Data_set (1).csv")
+df.describe()
 ```
 
-![1](https://github.com/user-attachments/assets/1d660f6b-560e-4818-92b0-22cd15fda715)
+<img width="1310" height="494" alt="Screenshot 2026-02-18 135613" src="https://github.com/user-attachments/assets/1645bfd5-47d0-4326-ac25-2070ef00951e" />
+
 
 ```
-ir.describe()
-
+df.head()
 ```
 
-![2](https://github.com/user-attachments/assets/d0579466-3ff4-4750-b0e0-99e4b4edc8fe)
+
+<img width="1372" height="537" alt="image" src="https://github.com/user-attachments/assets/1094377f-ec8f-4ca4-b325-4ef82a260785" />
+
 
 ```
-import seaborn as sns
-sns.boxplot(x='sepal_width',data=ir)
-
+df.tail()
 ```
 
-![3](https://github.com/user-attachments/assets/9ffcebc3-2384-4919-927d-14c2bd5b1793)
+<img width="1349" height="494" alt="image" src="https://github.com/user-attachments/assets/bce060c4-e9b4-4418-ae54-2be0f6ca9b99" />
+
 
 ```
-Q1=ir.sepal_width.quantile(0.25)
-Q3=ir.sepal_width.quantile(0.75)
-(IQR)=Q3-Q1
-print(IQR)
-
+df.isnull()
 ```
 
-![4](https://github.com/user-attachments/assets/3b9a5ce1-1727-4b22-92f3-f341b72ecba3)
+<img width="795" height="426" alt="image" src="https://github.com/user-attachments/assets/b4dac22b-80e3-4b7d-bf10-5c3e429601d6" />
+
 
 ```
-ran=ir[((ir.sepal_width<(Q1-1.5*IQR))|(ir.sepal_width>(Q3+1.5*IQR)))]
-ran['sepal_width']
+df.isnull().sum()
 ```
 
-![4](https://github.com/user-attachments/assets/baed2042-9696-46bc-93b1-93fc0d47725d)
+<img width="358" height="512" alt="image" src="https://github.com/user-attachments/assets/bddd977f-327f-4230-93c6-2bfbb038b2ff" />
+
 
 ```
-sns.boxplot(x='sepal_width',data=ran)
+df_clean = df.dropna()
+df_clean
 ```
 
-<img width="1600" height="950" alt="image" src="https://github.com/user-attachments/assets/46fb024c-32f6-43a5-bc37-dda8d7e7313e" />
+
+<img width="1357" height="835" alt="image" src="https://github.com/user-attachments/assets/5c3c8e63-438c-4551-b089-ead7546b24e3" />
+
 
 ```
-import numpy as np
-import scipy.stats as stats
-z=np.abs(stats.zscore(ir['petal_length']))
-z
+numeric_df = df_clean.select_dtypes(include=['float64', 'int64'])
+
+Q1 = numeric_df.quantile(0.25, numeric_only=True)
+Q3 = numeric_df.quantile(0.75, numeric_only=True)
+IQR = Q3 - Q1
+
+data = df_clean[~((numeric_df < (Q1 - 1.5 * IQR)) | (numeric_df > (Q3 + 1.5 * IQR))).any(axis=1)]
+data
 ```
 
-<img width="1600" height="950" alt="image" src="https://github.com/user-attachments/assets/2ce58cf0-65c3-4030-8b96-882f1fb1285b" />
+<img width="1299" height="808" alt="image" src="https://github.com/user-attachments/assets/fd0694a7-6310-4378-94bc-4115f7e701af" />
+
 
 ```
-ir1=ir[z<3]
-ir1
+import pandas as pd
+df=pd.read_csv("heights (1).csv")
+df.describe()
 ```
 
-<img width="1600" height="950" alt="image" src="https://github.com/user-attachments/assets/501e3c69-fd79-4784-ae05-ace1a85e3467" />
-
-            
-# Result
-
-Thus the given data successfully performed data cleaning and saved the cleaned data to a file
+<img width="627" height="491" alt="image" src="https://github.com/user-attachments/assets/93ab1f4c-3ea0-4d7d-9a23-c19e27191484" />
 
 
-          <<include your Result here>>
+```
+df.head()
+```
 
+<img width="933" height="454" alt="image" src="https://github.com/user-attachments/assets/99b09ed4-8649-4e30-9912-5bb165d62cfa" />
+
+
+```
+df.tail()
+```
+
+
+<img width="511" height="340" alt="image" src="https://github.com/user-attachments/assets/7cc3f193-fb23-4605-ac19-d424b8286494" />
+
+
+```
+df.isnull()
+```
+
+<img width="560" height="697" alt="image" src="https://github.com/user-attachments/assets/5966b4c9-14fc-40c0-9020-c8ce4f5ae228" />
+
+
+```
+df.isnull().sum()
+```
+
+
+<img width="561" height="267" alt="image" src="https://github.com/user-attachments/assets/a6c7c8d7-636c-4ba3-952b-6603db46d382" />
+
+
+```
+df_clean = df.dropna()
+df_clean
+```
+
+<img width="672" height="750" alt="image" src="https://github.com/user-attachments/assets/a77098a8-d867-40d4-a756-1ded7c7f5359" />
+
+
+
+```
+numeric_df = df_clean.select_dtypes(include=['float64', 'int64'])
+
+Q1 = numeric_df.quantile(0.25, numeric_only=True)
+Q3 = numeric_df.quantile(0.75, numeric_only=True)
+IQR = Q3 - Q1
+
+data = df_clean[~((numeric_df < (Q1 - 1.5 * IQR)) | (numeric_df > (Q3 + 1.5 * IQR))).any(axis=1)]
+data
+```
+
+
+<img width="1026" height="747" alt="image" src="https://github.com/user-attachments/assets/369987a9-d753-4936-816b-27249a67777d" />
+
+
+```
+import pandas as pd
+df=pd.read_csv("Loan_data.csv")
+df.describe()
+```
+
+<img width="1147" height="509" alt="image" src="https://github.com/user-attachments/assets/8e5d0dd2-920b-44a8-ba39-f0fb953d7930" />
+
+
+```
+df.info
+```
+
+
+<img width="1147" height="509" alt="image" src="https://github.com/user-attachments/assets/0c1b703b-c4e2-403b-860f-44ed28375c44" />
+
+
+```
+df.head()
+```
+
+<img width="1360" height="486" alt="image" src="https://github.com/user-attachments/assets/2023a132-ff27-4c64-b253-431333b2adf5" />
+
+
+```
+df.tail()
+```
+
+
+<img width="1369" height="373" alt="image" src="https://github.com/user-attachments/assets/4b514acd-810c-4e75-a349-12bae196ece1" />
+
+
+```
+df.isnull()
+```
+
+<img width="1364" height="655" alt="image" src="https://github.com/user-attachments/assets/008af5bb-e66d-4804-97f5-1fb138ecbe91" />
+
+```
+numeric_df = df_clean.select_dtypes(include=['float64', 'int64'])
+
+Q1 = numeric_df.quantile(0.25, numeric_only=True)
+Q3 = numeric_df.quantile(0.75, numeric_only=True)
+IQR = Q3 - Q1
+
+data = df_clean[~((numeric_df < (Q1 - 1.5 * IQR)) | (numeric_df > (Q3 + 1.5 * IQR))).any(axis=1)]
+data
+```
+
+<img width="1069" height="777" alt="image" src="https://github.com/user-attachments/assets/3ebcd2a2-37f0-443f-bc9e-fedd4a4d0038" />
+
+
+```
+import pandas as pd
+df=pd.read_csv("C:\\Users\\admin\\Downloads\\Data_set.csv")
+df.describe()
+```
+
+<img width="883" height="536" alt="image" src="https://github.com/user-attachments/assets/7ea353c0-3998-4640-9cd6-471d4563d8ee" />
+
+
+```
+df.head()
+```
+
+<img width="974" height="387" alt="image" src="https://github.com/user-attachments/assets/51ed117a-8b01-44d2-a47e-ecdcfb0c176e" />
+
+
+```
+df.info()
+```
+
+<img width="857" height="359" alt="image" src="https://github.com/user-attachments/assets/eba92746-b2cc-4673-9ce2-5bd641699345" />
+
+
+
+```
+df.isnull().sum()
+```
+
+<img width="1099" height="502" alt="image" src="https://github.com/user-attachments/assets/c84bf741-f15c-40b9-89ef-8a48e46cca6a" />
+
+
+```
+df_clean = df.dropna()
+df_clean
+```
+
+<img width="980" height="687" alt="image" src="https://github.com/user-attachments/assets/1d4b6251-b2b2-4d66-a841-376e475a0403" />
+
+
+```
+numeric_df = df_clean.select_dtypes(include=['float64', 'int64'])
+
+Q1 = numeric_df.quantile(0.25, numeric_only=True)
+Q3 = numeric_df.quantile(0.75, numeric_only=True)
+IQR = Q3 - Q1
+
+data = df_clean[~((numeric_df < (Q1 - 1.5 * IQR)) | (numeric_df > (Q3 + 1.5 * IQR))).any(axis=1)]
+data
+```
+
+<img width="1062" height="721" alt="image" src="https://github.com/user-attachments/assets/854e7f33-2f5e-4ca3-8ae1-0df996756ea9" />
+
+
+The program was successfully executed 
