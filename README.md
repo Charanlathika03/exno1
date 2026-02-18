@@ -1,5 +1,10 @@
-<img width="1349" height="494" alt="image" src="https://github.com/user-attachments/assets/966adf7a-adac-472b-88a5-ab39b550305b" /># Exno:1
-Data Cleaning Process
+# Exno:1
+
+**DATA CLEANING PROCESS**
+
+NAME : CHARAN LATHIKA M
+
+REG NO : 212224040052
 
 # AIM
 To read the given data and perform data cleaning and save the cleaned data to a file.
